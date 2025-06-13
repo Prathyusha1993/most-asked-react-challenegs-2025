@@ -11,15 +11,20 @@ function TodoApp() {
         if(inputValue.trim() === '') return;
         setTodos([...todos, {text: inputValue, completed: false}]);
         setInputValue('');
-    };
-
-    const handleDeleteTodo = (i) => {
-        setTodos(todos.filter((_,index) => index !== i));
     }
 
-    const startEditing = (index) => {
-        setEditIndex(index);
-        setEditInputValue(todos[index].text)
+    const handleDeleteTodo = (i) => {
+        setTodos(todos.filter((_, index) => index !== i));
+    };
+
+    const toggleCompleted = (i) => {
+        const newTodos = todos.map((todo,index) => (index === i ? {...todo, completed: !todo.completed} : todo));
+        setTodos(newTodos);
+    }
+
+    const startEditing = (i) => {
+        setEditIndex(i);
+        setEditInputValue(todos[i].text);
     }
 
     const cancelEditing = () => {
@@ -27,47 +32,42 @@ function TodoApp() {
         setEditInputValue('');
     }
 
-    const handleEditSubmit = (e, index) => {
+    const handleEditTodo = (e, i) => {
         e.preventDefault();
         if(!editInputValue.trim()) return;
-        const newTodos = todos.map((todo, i) => (i === index ? {...todo, text: editInputValue} : todo));
-        setTodos(newTodos);
+        const updatedTodos = todos.map((todo, index) => (index === i ? {...todo, text: editInputValue} : todo));
+        setTodos(updatedTodos);
         cancelEditing();
     }
-
-    const toggleCompleted = (index) => {
-        const newTodos = todos.map((todo,i) => (i === index ? {...todo, completed: !todo.completed} : todo));
-        setTodos(newTodos);
-    }
-
+    
   return (
     <div>
-        <h2>Todo App</h2>
+        <h3>Todo App</h3>
         <form onSubmit={handleAddTodo}>
-            <input type='text' value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder='Enter Todo'/>
+            <input type='text' value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder='Enter Task' />
             <button type='submit'>Add Task</button>
         </form>
         <ul>
-        {todos.map((todo, index) => {
-            return (
+            {todos.map((todo, index) => (
                 <li key={index}>
                     {editIndex === index ? (
-                        <form onSubmit={(e) => handleEditSubmit(e, index)}>
+                        <>
+                        <form onSubmit={(e) => handleEditTodo(e, index)}>
                             <input type='text' value={editInputValue} onChange={(e) => setEditInputValue(e.target.value)} placeholder='Edit todo'/>
                             <button type='submit'>Save</button>
                             <button type='button' onClick={cancelEditing}>Cancel</button>
                         </form>
+                        </>
                     ) : (
-                        <div>
+                        <>
                         <span onClick={() => toggleCompleted(index)}>{todo.text}</span>
                         <button onClick={() => startEditing(index)}>Edit</button>
                         <button onClick={() => handleDeleteTodo(index)}>Delete</button>
-                        </div>
+                        </>
                     )}
                     
                 </li>
-            )
-        })}
+            ))}
         </ul>
     </div>
   )

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TodoApp from './components/todoApp/TodoApp'
+import AppModal from './components/aboutModal/AppModal'
 // import './App.css'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
       <h1>React Practise</h1>
       <TodoApp />
+      <AppModal />
     </>
   )
 }
