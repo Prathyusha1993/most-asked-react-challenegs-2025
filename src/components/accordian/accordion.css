@@ -1,0 +1,26 @@
+.accordion {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 16px;
+}
+
+.accordion-item{
+    border-bottom: 1px solid #ccc;
+}
+
+.accordion-header{
+background-color: #f7f7f7;
+padding: 12px 16px;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.toggle-icon{
+font-weight: bold;
+}
+
+.accordion-content{
+    padding: 16px;
+}
