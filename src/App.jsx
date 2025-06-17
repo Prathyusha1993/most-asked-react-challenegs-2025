@@ -3,6 +3,7 @@ import TodoApp from './components/todoApp/TodoApp'
 import AppModal from './components/aboutModal/AppModal'
 import AppAccordian from './components/accordian/AppAccordian'
 import AppDropdown from './components/dropdownExample/AppDropdown'
+import DynamicFormUsage from './components/dynamicFormJsonScheme/DynamicFormUsage'
 // import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <AppModal />
       <AppAccordian />
       <AppDropdown />
+      <DynamicFormUsage />
     </>
   )
 }

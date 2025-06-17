@@ -1,13 +1,18 @@
-import React, {useState} from "react";
-import './dropdown.css';
+import React, { useState } from "react";
+import "./dropdown.css";
 
 function DropdownMenu({ options, onSelect, selectedOption }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [focusIndex, setFocusIndex] = useState(-1);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  const handleClickOption = (index) => {
+    onSelect(options[index]);
+    setIsOpen(false);
+  };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-    setFocusIndex(0);
+    setIsOpen(prev => !prev);
+    setFocusedIndex(0);
   };
 
   const handleKeyDown = (e) => {
@@ -15,16 +20,16 @@ function DropdownMenu({ options, onSelect, selectedOption }) {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setFocusIndex((prev) => (prev + 1) % options.length);
+        setFocusedIndex((prev) => (prev + 1) % options.length);
         break;
       case "ArrowUp":
         e.preventDefault();
-        setFocusIndex((prev) => (prev - 1 + options.length) % options.length);
+        setFocusedIndex((prev) => (prev - 1 + options.length) % options.length);
         break;
       case "Enter":
         e.preventDefault();
-        if (focusIndex >= 0) {
-          onSelect(options[focusIndex]);
+        if (focusedIndex >= 0) {
+          onSelect(options[focusedIndex]);
           setIsOpen(false);
         }
         break;
@@ -37,14 +42,9 @@ function DropdownMenu({ options, onSelect, selectedOption }) {
     }
   };
 
-  const handleClickOption = (index) => {
-    onSelect(options[index]);
-    setIsOpen(false);
-  };
-
   return (
     <div className="dropdown">
-      <h3>Dropdown Example</h3>
+      <h3>Dropdown Menu</h3>
       <button
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
@@ -52,20 +52,24 @@ function DropdownMenu({ options, onSelect, selectedOption }) {
         aria-expanded={isOpen}
         className="dropdown-button"
       >
-        {selectedOption ? selectedOption.label : 'Select Option'}
+        {selectedOption ? selectedOption.label : "Select Option"}
       </button>
       {isOpen && (
-        <ul className="dropdown-menu" role='menu'>
-            {options.map((option, index) => (
-                <li 
-                key={option.id}
-                role='menuitem'
-                tabIndex={focusIndex === index ? 0 : -1}
-                onKeyDown={handleKeyDown}
-                onClick={() => handleClickOption(index)}
-                className={`dropdown-item ${index === focusIndex ? 'focused' : ''}`}
-                style={{backgroundColor: index === focusIndex ? '##f0f0f0' : 'white', padding: '8px 12px', cursor:'pointer'}}>{option.label}</li>
-            ))}
+        <ul className="dropdown-menu" role="menu">
+          {options.map((option, index) => (
+            <li
+              key={index}
+              role="menuitem"
+              tabIndex={focusedIndex === index ? 0 : -1}
+              onKeyDown={handleKeyDown}
+              className={`dropdown-item ${
+                index === focusedIndex ? "focused" : ""
+              }`}
+              onClick={() => handleClickOption(index)}
+            >
+              {option.label}
+            </li>
+          ))}
         </ul>
       )}
     </div>

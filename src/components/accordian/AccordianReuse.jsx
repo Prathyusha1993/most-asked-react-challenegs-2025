@@ -10,7 +10,7 @@ function AccordianReuse({items}) {
   return (
     <div className='accordion'>
         {items.map((item) => (
-            <div className='accordion-item'>
+            <div className='accordion-item' key={item.id}>
                 <div className='accordion-header' onClick={() => handleToggle(item.id)}>
                 {item.title}
                 <span className='toggle-icon'>{activeIndex === items.id ? '-' : '+'}</span>

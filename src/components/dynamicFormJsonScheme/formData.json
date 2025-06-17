@@ -1,0 +1,49 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "label": "Name",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "required": true
+        },
+        {
+            "name": "phone",
+            "label": "Phone",
+            "type": "tel"
+        },
+        {
+            "name": "message",
+            "label": "Message",
+            "type": "textarea"
+        },
+        {
+            "name": "name",
+            "label": "I agree to the terms and conditions",
+            "type": "checkbox"
+        },
+        {
+            "name": "country",
+            "label": "Country",
+            "type": "select",
+            "options": [
+                {"value": "us", "label":"United States"},
+                {"value": "ca", "label":"Canada"},
+                {"value": "uk", "label":"United Kingdom"},
+                {"value": "as", "label":"Australia"},
+                {"value": "in", "label":"India"}
+            ]
+        },
+        {
+            "name": "age",
+            "label": "Age",
+            "type": "number",
+            "required": true
+        }
+    ]
+}
